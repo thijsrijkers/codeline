@@ -4,8 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-
-	"llm-example/llm"
+	"codeline/llm"
 )
 
 func main() {
@@ -16,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	resp, err := client.Ask(ctx, "What is the capital of France?")
+	resp, err := client.Ask(context.Background(), "What is the Go programming language?")
 	if err != nil {
 		log.Fatal(err)
 	}
