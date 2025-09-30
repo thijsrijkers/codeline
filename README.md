@@ -8,9 +8,9 @@
 
 Codeline is an AI-powered terminal assistant designed to answer questions, interact through a terminal UI, and make code adjustments. The project is structured in phases to ensure clarity, scalability, and maintainability.
 
-## LLM Setup (Ollama / LLaMA)
+## Setup
 
-This project supports running LLaMA models locally via [Ollama](https://ollama.ai).
+This project supports running LLaMA models locally via [Ollama](https://ollama.ai). Future implementations will support multiple other models.
 
 ### 1. Install Ollama
 Follow the instructions on the [Ollama website](https://ollama.ai/download) to install it on your system.  
