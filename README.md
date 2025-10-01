@@ -58,8 +58,3 @@ The final phase focuses on adding AI-driven code editing capabilities. This will
 ## Model Strategy
 
 Codeline is designed to be model-agnostic. The backend will support multiple AI models through a flexible architecture so models can be swapped without major changes. For early testing and development, free and open-source models (such as LLaMA 3, GPT-NeoX, or StarCoder) will be used. This allows rapid iteration without cost while keeping future expansion open to more advanced or specialized models. This flexibility ensures the project is not limited to a single provider or technology.
-
-## Technologies
-
-The backend will be built using Python (Flask/FastAPI) or Node.js. The terminal UI will be developed using libraries like `rich`, `textual`, or `blessed`. AI model integration will rely on a modular design, allowing both API-based and local model hosting. Git will handle version control and project tracking.
-
