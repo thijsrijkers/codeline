@@ -14,7 +14,7 @@
 
 Codeline is an AI-powered terminal assistant designed to answer questions, interact through a terminal UI, and make code adjustments. The project is structured in phases to ensure clarity, scalability, and maintainability.
 
-## Setup
+## Setup & installation
 
 This project supports running models locally via [Ollama](https://ollama.ai).
 
@@ -52,7 +52,7 @@ Once the project successfully launched, you can execute:
 ```
 go install
 ````
-This will make it install the app. Now you should be able to interact with the project by typing <b>codeline</b> in your terminal
+This will install the app. Now you should be able to interact with the project by typing <b>codeline</b> in your terminal
 
 ## Project Plan
 
