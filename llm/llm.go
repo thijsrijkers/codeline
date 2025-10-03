@@ -14,7 +14,6 @@ type LLM interface {
 func NewFromEnv() (LLM, error) {
 	provider := strings.ToLower(os.Getenv("LLM_PROVIDER"))
 	model := os.Getenv("LLM_MODEL")
-	apiKey := os.Getenv("LLM_API_KEY")
 
 	switch provider {
 	case "ollama":

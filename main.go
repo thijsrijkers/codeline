@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"codeline/llm"
+	"codeline/tui"
 )
 
 func main() {
@@ -15,11 +15,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	resp, err := client.Ask(context.Background(), "What is the Go programming language?")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(resp)
+	tui.StartChat(ctx, client)
 }
-
