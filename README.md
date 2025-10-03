@@ -52,7 +52,7 @@ Once the project successfully launched, you can execute:
 ```
 go install
 ````
-This will make it install the app. Now you should be able to interact with the project by typing <codeline> in your terminal
+This will make it install the app. Now you should be able to interact with the project by typing <b>codeline</b> in your terminal
 
 ## Project Plan
 
