@@ -43,6 +43,16 @@ If you don’t set `LLM_MODEL`, it defaults to `llama2`.
 
 ### 3. Run the app
 Once the environment variables are set and Ollama is running in the background:
+```
+go run ./main.go
+````
+
+### 4. Install
+Once the project successfully launched, you can execute:
+```
+go install
+````
+This will make it install the app. Now you should be able to interact with the project by typing <codeline> in your terminal
 
 ## Project Plan
 
