@@ -63,7 +63,7 @@ func StartChat(ctx context.Context, client llm.LLM) {
 
 Welcome to the chat interface!
 Type your message and press Enter.
-Type "exit" to quit.
+Type "exit", "quit" or "q" to quit.
 `
 	messages = append(messages, introText)
 	updateChat(chatView, messages)
@@ -78,7 +78,7 @@ Type "exit" to quit.
 		if input == "" {
 			return
 		}
-		if strings.ToLower(input) == "exit" {
+		if strings.ToLower(input) == "exit" || strings.ToLower(input) == "quit" || strings.ToLower(input) == "q" {
 			app.Stop()
 			return
 		}
@@ -122,14 +122,15 @@ Type "exit" to quit.
 				SetDirection(tview.FlexColumn).
 				AddItem(nil, 2, 0, false).
 				AddItem(chatView, 0, 1, false).
-				AddItem(nil, 2, 0, false),
+				AddItem(nil, 1, 0, false),
 			0, 1, false,
 		).
 		AddItem(
 			tview.NewFlex().
 				SetDirection(tview.FlexColumn).
 				AddItem(nil, 2, 0, false).
-				AddItem(inputFlex, 0, 1, true),
+				AddItem(inputFlex, 0, 1, true).
+				AddItem(nil, 1, 0, false),
 			2, 0, true,
 		).
 		AddItem(nil, 1, 0, false)

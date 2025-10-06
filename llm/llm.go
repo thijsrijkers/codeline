@@ -2,9 +2,7 @@ package llm
 
 import (
 	"context"
-	"fmt"
 	"os"
-	"strings"
 )
 
 type LLM interface {
@@ -12,7 +10,7 @@ type LLM interface {
 }
 
 func NewFromEnv() (LLM, error) {
-	provider := strings.ToLower(os.Getenv("LLM_PROVIDER"))
+	provider := os.Getenv("LLM_PROVIDER")
 	model := os.Getenv("LLM_MODEL")
 
 	switch provider {
@@ -23,7 +21,7 @@ func NewFromEnv() (LLM, error) {
 		return NewOllamaClient(model), nil
 
 	default:
-		return nil, fmt.Errorf("unknown LLM_PROVIDER: %s", provider)
+		return NewOllamaClient("llama2"), nil
 	}
 }
 
