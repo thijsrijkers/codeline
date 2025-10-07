@@ -22,6 +22,7 @@ const (
 func formatBubble(text, color string, width int) string {
 	return fmt.Sprintf("%s%s%s", color, text, resetColor)
 }
+
 func StartChat(ctx context.Context, client llm.LLM) {
 	app := tview.NewApplication()
 
@@ -87,22 +88,18 @@ Type "exit", "quit" or "q" to quit.
 		}
 		bubbleWidth := int(float64(width) * 0.6)
 
-		// Remove intro after first message
 		if !firstMessageSent {
 			firstMessageSent = true
 			messages = messages[1:]
 		}
 
-		// User bubble
 		messages = append(messages, formatBubble(input, userBubble, bubbleWidth))
 		updateChat(chatView, messages)
 
-		// Placeholder for the assistant’s streamed message
 		streamBuffer := new(strings.Builder)
 		messages = append(messages, formatBubble("", ollamaBubble, bubbleWidth))
 		updateChat(chatView, messages)
 
-		// Start streaming response in a goroutine
 		go func() {
 			stream, err := client.AskStream(ctx, input)
 			if err != nil {
@@ -116,7 +113,6 @@ Type "exit", "quit" or "q" to quit.
 			for token := range stream {
 				streamBuffer.WriteString(token)
 
-				// Update UI safely
 				app.QueueUpdateDraw(func() {
 					messages[len(messages)-1] = formatBubble(streamBuffer.String(), ollamaBubble, bubbleWidth)
 					updateChat(chatView, messages)

@@ -94,7 +94,6 @@ func (c *OllamaClient) AskStream(ctx context.Context, prompt string) (<-chan str
 		return nil, err
 	}
 
-	// Make a channel to send partial tokens
 	ch := make(chan string)
 
 	go func() {
@@ -110,10 +109,9 @@ func (c *OllamaClient) AskStream(ctx context.Context, prompt string) (<-chan str
 
 			var parsed ollamaStreamResponse
 			if err := json.Unmarshal(line, &parsed); err != nil {
-				continue // skip malformed chunks
+				continue 
 			}
 
-			// Each chunk includes part of the response
 			if parsed.Response != "" {
 				select {
 				case <-ctx.Done():
@@ -122,7 +120,6 @@ func (c *OllamaClient) AskStream(ctx context.Context, prompt string) (<-chan str
 				}
 			}
 
-			// Some Ollama responses include `done: true` when finished
 			if parsed.Done {
 				return
 			}
