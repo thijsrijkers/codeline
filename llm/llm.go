@@ -7,6 +7,7 @@ import (
 
 type LLM interface {
 	Ask(ctx context.Context, prompt string) (string, error)
+	AskStream(ctx context.Context, prompt string) (<-chan string, error)
 }
 
 func NewFromEnv() (LLM, error) {

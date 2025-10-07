@@ -22,16 +22,13 @@ const (
 func formatBubble(text, color string, width int) string {
 	return fmt.Sprintf("%s%s%s", color, text, resetColor)
 }
-
 func StartChat(ctx context.Context, client llm.LLM) {
 	app := tview.NewApplication()
 
 	chatView := tview.NewTextView().
 		SetDynamicColors(true).
 		SetScrollable(true).
-		SetChangedFunc(func() {
-			app.Draw()
-		})
+		SetChangedFunc(func() { app.Draw() })
 	chatView.SetBorder(true)
 	chatView.SetBackgroundColor(tcell.GetColor("#1a1a1a"))
 
@@ -74,11 +71,12 @@ Type "exit", "quit" or "q" to quit.
 		if key != tcell.KeyEnter {
 			return
 		}
+
 		input := strings.TrimSpace(inputField.GetText())
 		if input == "" {
 			return
 		}
-		if strings.ToLower(input) == "exit" || strings.ToLower(input) == "quit" || strings.ToLower(input) == "q" {
+		if strings.EqualFold(input, "exit") || strings.EqualFold(input, "quit") || strings.EqualFold(input, "q") {
 			app.Stop()
 			return
 		}
@@ -92,19 +90,39 @@ Type "exit", "quit" or "q" to quit.
 		// Remove intro after first message
 		if !firstMessageSent {
 			firstMessageSent = true
-			messages = messages[1:] // Remove intro text
+			messages = messages[1:]
 		}
 
+		// User bubble
 		messages = append(messages, formatBubble(input, userBubble, bubbleWidth))
 		updateChat(chatView, messages)
 
-		response, err := client.Ask(ctx, input)
-		if err != nil {
-			messages = append(messages, formatBubble("Error: "+err.Error(), ollamaBubble, bubbleWidth))
-		} else {
-			messages = append(messages, formatBubble(response, ollamaBubble, bubbleWidth))
-		}
+		// Placeholder for the assistant’s streamed message
+		streamBuffer := new(strings.Builder)
+		messages = append(messages, formatBubble("", ollamaBubble, bubbleWidth))
 		updateChat(chatView, messages)
+
+		// Start streaming response in a goroutine
+		go func() {
+			stream, err := client.AskStream(ctx, input)
+			if err != nil {
+				app.QueueUpdateDraw(func() {
+					messages[len(messages)-1] = formatBubble("Error: "+err.Error(), ollamaBubble, bubbleWidth)
+					updateChat(chatView, messages)
+				})
+				return
+			}
+
+			for token := range stream {
+				streamBuffer.WriteString(token)
+
+				// Update UI safely
+				app.QueueUpdateDraw(func() {
+					messages[len(messages)-1] = formatBubble(streamBuffer.String(), ollamaBubble, bubbleWidth)
+					updateChat(chatView, messages)
+				})
+			}
+		}()
 
 		inputField.SetText("")
 	})
