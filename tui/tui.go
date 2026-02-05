@@ -70,7 +70,7 @@ func StartChat(parentCtx context.Context, client llm.LLM) {
  ██║      ██║   ██║██║  ██║██╔══╝  ██║     ██║██║╚██╗██║██╔══╝
  ╚██████╗ ╚██████╔╝██████╔╝███████╗███████╗██║██║ ╚████║███████╗
   ╚═════╝  ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝`,
-		"[#9aa0a6] \n Type a message and press Enter.\n Type exit, quit or q to quit.\n[-]\n",
+		"[#9aa0a6] \n Type a message and press Enter.\n Ctrl+C to quit • Ctrl+L to clear.\n[-]\n",
 	}
 
 	updateChat(chatView, messages)
