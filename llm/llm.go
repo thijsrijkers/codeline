@@ -24,4 +24,3 @@ func NewFromEnv() (LLM, error) {
 		return NewOllamaClient("llama2"), nil
 	}
 }
-
