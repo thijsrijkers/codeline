@@ -7,7 +7,7 @@
   ╚═════╝  ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
 ```
 
-Codeline is an AI-powered terminal assistant designed to answer questions, interact through a terminal UI, and make code adjustments. The project is structured in phases to ensure clarity, scalability, and maintainability.
+Codeline is an AI-powered terminal assistant designed to answer questions, interact through a terminal UI, and make code adjustments.
 
 ## Setup & installation
 
